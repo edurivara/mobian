@@ -21,6 +21,10 @@
 		34537CD8182AA4460080438F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34537CBA182AA4460080438F /* UIKit.framework */; };
 		34537CE0182AA4460080438F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 34537CDE182AA4460080438F /* InfoPlist.strings */; };
 		34537CE2182AA4460080438F /* MobianTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34537CE1182AA4460080438F /* MobianTests.m */; };
+		34537CEF182AA4B90080438F /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34537CED182AA4B90080438F /* CAXException.cpp */; };
+		34537CF5182AA4EC0080438F /* KeyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 34537CF2182AA4EC0080438F /* KeyHelper.m */; };
+		34537CF6182AA4EC0080438F /* RIOInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34537CF4182AA4EC0080438F /* RIOInterface.mm */; };
+		34537CF9182AA5250080438F /* mobian.png in Resources */ = {isa = PBXBuildFile; fileRef = 34537CF8182AA5250080438F /* mobian.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,15 @@
 		34537CDD182AA4460080438F /* MobianTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobianTests-Info.plist"; sourceTree = "<group>"; };
 		34537CDF182AA4460080438F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		34537CE1182AA4460080438F /* MobianTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobianTests.m; sourceTree = "<group>"; };
+		34537CEB182AA4B90080438F /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
+		34537CEC182AA4B90080438F /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
+		34537CED182AA4B90080438F /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
+		34537CEE182AA4B90080438F /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
+		34537CF1182AA4EC0080438F /* KeyHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyHelper.h; sourceTree = "<group>"; };
+		34537CF2182AA4EC0080438F /* KeyHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyHelper.m; sourceTree = "<group>"; };
+		34537CF3182AA4EC0080438F /* RIOInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIOInterface.h; sourceTree = "<group>"; };
+		34537CF4182AA4EC0080438F /* RIOInterface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RIOInterface.mm; sourceTree = "<group>"; };
+		34537CF8182AA5250080438F /* mobian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobian.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +131,8 @@
 				34537CCB182AA4460080438F /* mbnViewController.h */,
 				34537CCC182AA4460080438F /* mbnViewController.m */,
 				34537CCE182AA4460080438F /* Images.xcassets */,
+				34537CF7182AA4F30080438F /* Singletons */,
+				34537CF0182AA4C50080438F /* CAUtils */,
 				34537CBD182AA4460080438F /* Supporting Files */,
 			);
 			path = Mobian;
@@ -126,6 +141,7 @@
 		34537CBD182AA4460080438F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				34537CF8182AA5250080438F /* mobian.png */,
 				34537CBE182AA4460080438F /* Mobian-Info.plist */,
 				34537CBF182AA4460080438F /* InfoPlist.strings */,
 				34537CC2182AA4460080438F /* main.m */,
@@ -150,6 +166,28 @@
 				34537CDE182AA4460080438F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		34537CF0182AA4C50080438F /* CAUtils */ = {
+			isa = PBXGroup;
+			children = (
+				34537CEB182AA4B90080438F /* CADebugMacros.h */,
+				34537CEC182AA4B90080438F /* CAStreamBasicDescription.h */,
+				34537CED182AA4B90080438F /* CAXException.cpp */,
+				34537CEE182AA4B90080438F /* CAXException.h */,
+			);
+			name = CAUtils;
+			sourceTree = "<group>";
+		};
+		34537CF7182AA4F30080438F /* Singletons */ = {
+			isa = PBXGroup;
+			children = (
+				34537CF1182AA4EC0080438F /* KeyHelper.h */,
+				34537CF2182AA4EC0080438F /* KeyHelper.m */,
+				34537CF3182AA4EC0080438F /* RIOInterface.h */,
+				34537CF4182AA4EC0080438F /* RIOInterface.mm */,
+			);
+			name = Singletons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +270,7 @@
 				34537CCF182AA4460080438F /* Images.xcassets in Resources */,
 				34537CC1182AA4460080438F /* InfoPlist.strings in Resources */,
 				34537CCA182AA4460080438F /* Main.storyboard in Resources */,
+				34537CF9182AA5250080438F /* mobian.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,8 +289,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34537CEF182AA4B90080438F /* CAXException.cpp in Sources */,
+				34537CF5182AA4EC0080438F /* KeyHelper.m in Sources */,
 				34537CC7182AA4460080438F /* mbnAppDelegate.m in Sources */,
 				34537CCD182AA4460080438F /* mbnViewController.m in Sources */,
+				34537CF6182AA4EC0080438F /* RIOInterface.mm in Sources */,
 				34537CC3182AA4460080438F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,6 +423,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Mobian/Mobian-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "Mobian/Mobian-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

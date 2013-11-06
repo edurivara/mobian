@@ -7,12 +7,20 @@
 //
 
 #import "mbnAppDelegate.h"
+#import "RIOInterface.h"
 
 @implementation mbnAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    /**RIO session setup */
+	RIOInterface *rioRef = [RIOInterface sharedInstance];
+	[rioRef setSampleRate:44100];
+	[rioRef setFrequency:294];
+	[rioRef initializeAudioSession];
+
     return YES;
 }
 							
