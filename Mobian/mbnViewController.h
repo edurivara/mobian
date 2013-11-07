@@ -22,7 +22,7 @@
 @property(nonatomic, assign) float currentFrequency;
 @property(assign) BOOL isListening;
 @property(weak, nonatomic) NSDate *lastCapture;
-
+@property(assign) BOOL isParsing;
 
 //Player
 @property(strong, nonatomic) NSDate *timeStarted;
@@ -33,6 +33,9 @@
 @property (assign) double sampleRate;
 @property (assign) double theta;
 
+//SoundPlayer
+@property (nonatomic, retain) AVAudioPlayer *soundPlayerStart;
+@property (nonatomic, retain) AVAudioPlayer *soundPlayerEnd;
 
 //Listener
 - (IBAction)toggleListening:(id)sender;

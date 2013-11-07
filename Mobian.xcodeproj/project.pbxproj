@@ -25,6 +25,8 @@
 		34537CF5182AA4EC0080438F /* KeyHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 34537CF2182AA4EC0080438F /* KeyHelper.m */; };
 		34537CF6182AA4EC0080438F /* RIOInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34537CF4182AA4EC0080438F /* RIOInterface.mm */; };
 		34537CF9182AA5250080438F /* mobian.png in Resources */ = {isa = PBXBuildFile; fileRef = 34537CF8182AA5250080438F /* mobian.png */; };
+		34537D05182C211E0080438F /* endsound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 34537D03182C211E0080438F /* endsound.wav */; };
+		34537D06182C211E0080438F /* startsound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 34537D04182C211E0080438F /* startsound.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		34537CF3182AA4EC0080438F /* RIOInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIOInterface.h; sourceTree = "<group>"; };
 		34537CF4182AA4EC0080438F /* RIOInterface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RIOInterface.mm; sourceTree = "<group>"; };
 		34537CF8182AA5250080438F /* mobian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mobian.png; sourceTree = "<group>"; };
+		34537D03182C211E0080438F /* endsound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = endsound.wav; sourceTree = "<group>"; };
+		34537D04182C211E0080438F /* startsound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = startsound.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 		34537CBD182AA4460080438F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				34537CFE182BEB9F0080438F /* Sounds */,
 				34537CF8182AA5250080438F /* mobian.png */,
 				34537CBE182AA4460080438F /* Mobian-Info.plist */,
 				34537CBF182AA4460080438F /* InfoPlist.strings */,
@@ -188,6 +193,15 @@
 				34537CF4182AA4EC0080438F /* RIOInterface.mm */,
 			);
 			name = Singletons;
+			sourceTree = "<group>";
+		};
+		34537CFE182BEB9F0080438F /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				34537D03182C211E0080438F /* endsound.wav */,
+				34537D04182C211E0080438F /* startsound.wav */,
+			);
+			name = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +281,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34537D05182C211E0080438F /* endsound.wav in Resources */,
+				34537D06182C211E0080438F /* startsound.wav in Resources */,
 				34537CCF182AA4460080438F /* Images.xcassets in Resources */,
 				34537CC1182AA4460080438F /* InfoPlist.strings in Resources */,
 				34537CCA182AA4460080438F /* Main.storyboard in Resources */,
@@ -504,6 +520,7 @@
 				34537CE7182AA4460080438F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		34537CE8182AA4460080438F /* Build configuration list for PBXNativeTarget "MobianTests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +529,7 @@
 				34537CEA182AA4460080438F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

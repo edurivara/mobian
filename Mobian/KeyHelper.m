@@ -13,6 +13,7 @@
 
 - (void)buildKeyMapping {
 	self.keyMapping = [[NSMutableDictionary alloc] initWithCapacity:9];
+	[keyMapping setObject:[NSNumber numberWithFloat:1248] forKey:@"Start"];
 	[keyMapping setObject:[NSNumber numberWithFloat:2500] forKey:@"0"];
 	[keyMapping setObject:[NSNumber numberWithFloat:2650] forKey:@"1"];
 	[keyMapping setObject:[NSNumber numberWithFloat:2800] forKey:@"2"];
@@ -25,6 +26,7 @@
 	[keyMapping setObject:[NSNumber numberWithFloat:3850] forKey:@"9"];
 	
 	self.frequencyMapping = [[NSMutableDictionary alloc] initWithCapacity:9];
+	[frequencyMapping setObject:@"Start" forKey:[NSNumber numberWithFloat:1248]];
 	[frequencyMapping setObject:@"0" forKey:[NSNumber numberWithFloat:2500]];
 	[frequencyMapping setObject:@"1" forKey:[NSNumber numberWithFloat:2650]];
 	[frequencyMapping setObject:@"2" forKey:[NSNumber numberWithFloat:2800]];

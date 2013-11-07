@@ -30,6 +30,7 @@
 @synthesize	rioRef;
 @synthesize currentFrequency;
 @synthesize lastCapture;
+@synthesize isParsing;
 
 //player
 @synthesize soundsArray;
@@ -42,6 +43,11 @@
 @synthesize sampleRate;
 @synthesize theta;
 
+
+
+//SoundPlayer
+@synthesize soundPlayerStart;
+@synthesize soundPlayerEnd;
 
 //**********Player**********
 
@@ -77,6 +83,7 @@ OSStatus RenderTone(
     if (posicionLetra > [viewController.palabra.text length]){
         viewController->frequency = 0;
         [viewController performSelectorOnMainThread:@selector(stop) withObject:nil waitUntilDone:NO];
+        [viewController.soundPlayerEnd play];
     }
     
     if (tiempoDesdeNuevaLetra>tiempoEntreFonemas/6){
@@ -130,21 +137,31 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
     
     [palabra resignFirstResponder];
     
-    self.timeStarted = [NSDate date];
-    if (!toneUnit){
-		[self createToneUnit];
-		
-		// Stop changing parameters on the unit
-		OSErr err = AudioUnitInitialize(toneUnit);
-		NSAssert1(err == noErr, @"Error initializing unit: %d", err);
-		
-		// Start playback
-		err = AudioOutputUnitStart(toneUnit);
-		NSAssert1(err == noErr, @"Error starting unit: %d", err);
-		
-	}
+    //Play start sound
+    [soundPlayerStart play];
+    //Cuando termina de tocar el sonido va a la funcion delegada y continua con la palabra.
     
 }
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+
+    if (player == soundPlayerStart){
+        
+        if ((!toneUnit)&&flag){
+        
+            self.timeStarted = [NSDate date];
+            [self createToneUnit];
+            // Stop changing parameters on the unit
+            OSErr err = AudioUnitInitialize(toneUnit);
+            NSAssert1(err == noErr, @"Error initializing unit: %d", err);
+            // Start playback
+            err = AudioOutputUnitStart(toneUnit);
+            NSAssert1(err == noErr, @"Error starting unit: %d", err);
+		
+        }
+    }
+}
+
 
 - (void)createToneUnit
 {
@@ -242,16 +259,20 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
 
 // Este metodo lo llama el Listener cuando cambia la frecuencia
 - (void)frequencyChangedWithValue:(float)newFrequency{
+
+    NSTimeInterval timeInterval = -[lastCapture timeIntervalSinceNow];
     
-	if ((newFrequency>2450)&(newFrequency<3900)){
-        
-        NSTimeInterval timeInterval = -[lastCapture timeIntervalSinceNow];
-        
-        if (timeInterval>([tiempoEntreFonemas floatValue]*3)){
-            //empieza palabra nueva
-            key = nil;
-            [self performSelectorInBackground:@selector(updateKeyLabel) withObject:nil];
-        }
+    if ((timeInterval>([tiempoEntreFonemas floatValue]*3))&&isParsing){
+        //empieza palabra nueva
+        key = nil;
+        [self performSelectorInBackground:@selector(updateKeyLabel) withObject:@"argh"];
+        isParsing = FALSE;
+    }
+
+    
+	if ((newFrequency>1200)&(newFrequency<1300)) isParsing = TRUE;
+    
+	if (((newFrequency>2450)&(newFrequency<3900)) && isParsing){
         
         if ((timeInterval>=[tiempoEntreFonemas floatValue])||!key){
             
@@ -299,12 +320,27 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
     //Listener
 	rioRef = [RIOInterface sharedInstance];
     lastCapture = [NSDate date];
+    isParsing = FALSE;
     
     //Player
     palabra.delegate = self;
     sampleRate = 44100;
     frequency = 440;
     tiempoEntreFonemas = @0.15;
+    
+    //Wav Player
+    NSString *soundFilePath = [[NSBundle mainBundle] pathForResource: @"startsound" ofType: @"wav"];
+    NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: soundFilePath];
+    AVAudioPlayer *newPlayerStart = [[AVAudioPlayer alloc] initWithContentsOfURL: fileURL error: nil];
+    soundPlayerStart = newPlayerStart;
+    soundPlayerStart.delegate = self;
+    [soundPlayerStart prepareToPlay];
+
+    soundFilePath = [[NSBundle mainBundle] pathForResource: @"endsound" ofType: @"wav"];
+    fileURL = [[NSURL alloc] initFileURLWithPath: soundFilePath];
+    AVAudioPlayer *newPlayerEnd = [[AVAudioPlayer alloc] initWithContentsOfURL: fileURL error: nil];
+    soundPlayerEnd = newPlayerEnd;
+    [soundPlayerEnd prepareToPlay];
     
     /* LO COMENTE DESPUES DEL ERROR AL INICIALIZAR REMOTEIO
      OSStatus result = AudioSessionInitialize(NULL, NULL, ToneInterruptionListener, (__bridge void *)(self));
@@ -317,6 +353,8 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
      
      */
     [self startListener];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
