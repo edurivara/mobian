@@ -31,6 +31,8 @@
 @synthesize currentFrequency;
 @synthesize lastCapture;
 @synthesize isParsing;
+@synthesize letraCaptada;
+@synthesize repeticiones;
 
 //player
 @synthesize soundsArray;
@@ -42,7 +44,7 @@
 @synthesize frequency;
 @synthesize sampleRate;
 @synthesize theta;
-
+@synthesize frecuenciaSeparador;
 
 
 //SoundPlayer
@@ -68,7 +70,7 @@ OSStatus RenderTone(
     const double tiempoEntreFonemas = [viewController.tiempoEntreFonemas floatValue];
     
 	// Fixed amplitude is good enough for our purposes
-	const double amplitude = 0.5;
+	const double amplitude = 1;
     
     
     //Controlo el tiempo para parar
@@ -77,16 +79,19 @@ OSStatus RenderTone(
     
     //Calcula la letra a emitir
     int posicionLetra = floor(timeElapsed/tiempoEntreFonemas);
-    float tiempoDesdeNuevaLetra = ((timeElapsed/tiempoEntreFonemas)-floor(timeElapsed/tiempoEntreFonemas));
+    float tiempoDesdeNuevaLetra = ((timeElapsed/tiempoEntreFonemas)-posicionLetra);
     
     //Si termino la palabra salgo
-    if (posicionLetra > [viewController.palabra.text length]){
+    if (posicionLetra >= [viewController.palabra.text length]){
         viewController->frequency = 0;
         [viewController performSelectorOnMainThread:@selector(stop) withObject:nil waitUntilDone:NO];
-        [viewController.soundPlayerEnd play];
+        //[viewController.soundPlayerEnd play];
+        //-[viewController stop];
+        return noErr;
     }
     
-    if (tiempoDesdeNuevaLetra>tiempoEntreFonemas/6){
+    //Comienzo de letra toco sonido intermedio, sino la letra.
+    if (tiempoDesdeNuevaLetra>0.5){
         //Obtengo la letra
         NSString *letra = [[NSString alloc] initWithFormat:@"%c",[viewController.palabra.text characterAtIndex:posicionLetra]];
         
@@ -97,7 +102,7 @@ OSStatus RenderTone(
         //Seteo la frecuencia
         viewController->frequency = [frequencia floatValue];
     }else{
-        viewController->frequency = 0;
+        viewController->frequency = viewController.frecuenciaSeparador;
     }
     
     double theta = viewController->theta;
@@ -138,11 +143,26 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
     [palabra resignFirstResponder];
     
     //Play start sound
-    [soundPlayerStart play];
+    //[soundPlayerStart play];
     //Cuando termina de tocar el sonido va a la funcion delegada y continua con la palabra.
     
+    if (!toneUnit){
+        
+        self.timeStarted = [NSDate date];
+        [self createToneUnit];
+        // Stop changing parameters on the unit
+        OSErr err = AudioUnitInitialize(toneUnit);
+        NSAssert1(err == noErr, @"Error initializing unit: %d", err);
+        // Start playback
+        err = AudioOutputUnitStart(toneUnit);
+        NSAssert1(err == noErr, @"Error starting unit: %d", err);
+		
+    }
+
 }
 
+/* Por ahora no tocar un start sound. Descomentar para continuar.
+ 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
 
     if (player == soundPlayerStart){
@@ -161,7 +181,7 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
         }
     }
 }
-
+*/
 
 - (void)createToneUnit
 {
@@ -224,7 +244,7 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
 	{
 		AudioOutputUnitStop(toneUnit);
 		AudioUnitUninitialize(toneUnit);
-		AudioComponentInstanceDispose(toneUnit);
+//		AudioComponentInstanceDispose(toneUnit);
 		toneUnit = nil;
 		
 	}
@@ -265,16 +285,22 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
     if ((timeInterval>([tiempoEntreFonemas floatValue]*3))&&isParsing){
         //empieza palabra nueva
         key = nil;
-        [self performSelectorInBackground:@selector(updateKeyLabel) withObject:@"argh"];
+        //repeticiones = 0;
+        //letraCaptada = nil;
+        
+        [self performSelectorInBackground:@selector(updateKeyLabel) withObject:nil];
         isParsing = FALSE;
     }
 
     
-	if ((newFrequency>1200)&(newFrequency<1300)) isParsing = TRUE;
+	if ((newFrequency>frecuenciaSeparador - 50)&(newFrequency<frecuenciaSeparador + 50)){
+        isParsing = TRUE;
+    }
+        
     
 	if (((newFrequency>2450)&(newFrequency<3900)) && isParsing){
         
-        if ((timeInterval>=[tiempoEntreFonemas floatValue])||!key){
+        //if ((timeInterval>=[tiempoEntreFonemas floatValue])||!key){
             
             KeyHelper *helper = [KeyHelper sharedInstance];
             NSArray *closestArray = [helper closestCharForFrequency:newFrequency];
@@ -283,18 +309,30 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
             
             if ([proximity floatValue] < 20){
                 
-                lastCapture = [NSDate date];
-                if (!key)
-                    key = [NSMutableString stringWithFormat:@"%@", closestChar];
-                else
-                    key = [NSMutableString stringWithFormat:@"%@", [self.key stringByAppendingString:closestChar]];
+                /*
+                if (!letraCaptada){
+                    letraCaptada = closestChar;
+                }else{
+                    if (letraCaptada == closestChar){
+                        repeticiones++;
+                    }
+                }
+                */
                 
-                self.currentFrequency = newFrequency;
-                
-                [self performSelectorInBackground:@selector(updateKeyLabel) withObject:nil];
-                
+                //if (repeticiones>0){
+                    lastCapture = [NSDate date];
+                    if (!key)
+                        key = [NSMutableString stringWithFormat:@"%@", closestChar];
+                    else
+                        key = [NSMutableString stringWithFormat:@"%@", [key stringByAppendingString:closestChar]];
+                    self.currentFrequency = newFrequency;
+                    [self performSelectorInBackground:@selector(updateKeyLabel) withObject:nil];
+                    isParsing = FALSE;
+                    //repeticiones = 0;
+                    //letraCaptada = nil;
+                //}
             }
-        }
+        //}
         
         
     }
@@ -326,7 +364,8 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
     palabra.delegate = self;
     sampleRate = 44100;
     frequency = 440;
-    tiempoEntreFonemas = @0.15;
+    tiempoEntreFonemas = @0.20;
+    frecuenciaSeparador = 2000;
     
     //Wav Player
     NSString *soundFilePath = [[NSBundle mainBundle] pathForResource: @"startsound" ofType: @"wav"];

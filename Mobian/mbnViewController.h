@@ -23,6 +23,8 @@
 @property(assign) BOOL isListening;
 @property(weak, nonatomic) NSDate *lastCapture;
 @property(assign) BOOL isParsing;
+@property (strong, nonatomic) NSString *letraCaptada;
+@property (assign) int repeticiones;
 
 //Player
 @property(strong, nonatomic) NSDate *timeStarted;
@@ -32,6 +34,7 @@
 @property (assign) double frequency;
 @property (assign) double sampleRate;
 @property (assign) double theta;
+@property (assign) float frecuenciaSeparador;
 
 //SoundPlayer
 @property (nonatomic, retain) AVAudioPlayer *soundPlayerStart;
