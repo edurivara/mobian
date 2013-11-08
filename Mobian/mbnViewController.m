@@ -298,7 +298,6 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
         isParsing = TRUE;
     }
         
-    if (isParsing) NSLog(@"isparsing!!!");
 	if (((newFrequency>2450)&&(newFrequency<3900)) && isParsing){
         
         //NSLog(@"entre por letra!!!");
