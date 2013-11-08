@@ -148,7 +148,7 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
     
     if (!toneUnit){
         
-        self.timeStarted = [NSDate date];
+        timeStarted = [NSDate date];
         [self createToneUnit];
         // Stop changing parameters on the unit
         OSErr err = AudioUnitInitialize(toneUnit);
@@ -282,7 +282,7 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
 
     NSTimeInterval timeInterval = -[lastCapture timeIntervalSinceNow];
     
-    if ((timeInterval>([tiempoEntreFonemas floatValue]*3))&&isParsing){
+    if (timeInterval>([tiempoEntreFonemas floatValue]*3)){
         //empieza palabra nueva
         key = nil;
         //repeticiones = 0;
@@ -290,16 +290,18 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
         
         [self performSelectorInBackground:@selector(updateKeyLabel) withObject:nil];
         isParsing = FALSE;
+        lastCapture = [NSDate date];
     }
 
     
-	if ((newFrequency>frecuenciaSeparador - 50)&(newFrequency<frecuenciaSeparador + 50)){
+	if ((newFrequency>frecuenciaSeparador - 50)&&(newFrequency<frecuenciaSeparador + 50)){
         isParsing = TRUE;
     }
         
-    
-	if (((newFrequency>2450)&(newFrequency<3900)) && isParsing){
+    if (isParsing) NSLog(@"isparsing!!!");
+	if (((newFrequency>2450)&&(newFrequency<3900)) && isParsing){
         
+        //NSLog(@"entre por letra!!!");
         //if ((timeInterval>=[tiempoEntreFonemas floatValue])||!key){
             
             KeyHelper *helper = [KeyHelper sharedInstance];
