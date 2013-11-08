@@ -298,7 +298,7 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
         isParsing = TRUE;
     }
         
-	if (((newFrequency>2450)&&(newFrequency<3900)) && isParsing){
+	if (((newFrequency>5450)&&(newFrequency<6900)) && isParsing){
         
         //NSLog(@"entre por letra!!!");
         //if ((timeInterval>=[tiempoEntreFonemas floatValue])||!key){
@@ -313,7 +313,7 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
                 /*
                 if (!letraCaptada){
                     letraCaptada = closestChar;
-                }else{
+                }else
                     if (letraCaptada == closestChar){
                         repeticiones++;
                     }

@@ -13,30 +13,28 @@
 
 - (void)buildKeyMapping {
 	self.keyMapping = [[NSMutableDictionary alloc] initWithCapacity:9];
-	[keyMapping setObject:[NSNumber numberWithFloat:1248] forKey:@"Start"];
-	[keyMapping setObject:[NSNumber numberWithFloat:2500] forKey:@"0"];
-	[keyMapping setObject:[NSNumber numberWithFloat:2650] forKey:@"1"];
-	[keyMapping setObject:[NSNumber numberWithFloat:2800] forKey:@"2"];
-	[keyMapping setObject:[NSNumber numberWithFloat:2950] forKey:@"3"];
-	[keyMapping setObject:[NSNumber numberWithFloat:3100] forKey:@"4"];
-	[keyMapping setObject:[NSNumber numberWithFloat:3250] forKey:@"5"];
-	[keyMapping setObject:[NSNumber numberWithFloat:3400] forKey:@"6"];
-	[keyMapping setObject:[NSNumber numberWithFloat:3550] forKey:@"7"];
-	[keyMapping setObject:[NSNumber numberWithFloat:3700] forKey:@"8"];
-	[keyMapping setObject:[NSNumber numberWithFloat:3850] forKey:@"9"];
+	[keyMapping setObject:[NSNumber numberWithFloat:5500] forKey:@"0"];
+	[keyMapping setObject:[NSNumber numberWithFloat:5650] forKey:@"1"];
+	[keyMapping setObject:[NSNumber numberWithFloat:5800] forKey:@"2"];
+	[keyMapping setObject:[NSNumber numberWithFloat:5950] forKey:@"3"];
+	[keyMapping setObject:[NSNumber numberWithFloat:6100] forKey:@"4"];
+	[keyMapping setObject:[NSNumber numberWithFloat:6250] forKey:@"5"];
+	[keyMapping setObject:[NSNumber numberWithFloat:6400] forKey:@"6"];
+	[keyMapping setObject:[NSNumber numberWithFloat:6550] forKey:@"7"];
+	[keyMapping setObject:[NSNumber numberWithFloat:6700] forKey:@"8"];
+	[keyMapping setObject:[NSNumber numberWithFloat:25850] forKey:@"9"];
 	
 	self.frequencyMapping = [[NSMutableDictionary alloc] initWithCapacity:9];
-	[frequencyMapping setObject:@"Start" forKey:[NSNumber numberWithFloat:1248]];
-	[frequencyMapping setObject:@"0" forKey:[NSNumber numberWithFloat:2500]];
-	[frequencyMapping setObject:@"1" forKey:[NSNumber numberWithFloat:2650]];
-	[frequencyMapping setObject:@"2" forKey:[NSNumber numberWithFloat:2800]];
-	[frequencyMapping setObject:@"3" forKey:[NSNumber numberWithFloat:2950]];
-	[frequencyMapping setObject:@"4" forKey:[NSNumber numberWithFloat:3100]];
-	[frequencyMapping setObject:@"5" forKey:[NSNumber numberWithFloat:3250]];
-	[frequencyMapping setObject:@"6" forKey:[NSNumber numberWithFloat:3400]];
-	[frequencyMapping setObject:@"7" forKey:[NSNumber numberWithFloat:3550]];
-	[frequencyMapping setObject:@"8" forKey:[NSNumber numberWithFloat:3700]];
-	[frequencyMapping setObject:@"9" forKey:[NSNumber numberWithFloat:3850]];
+	[frequencyMapping setObject:@"0" forKey:[NSNumber numberWithFloat:5500]];
+	[frequencyMapping setObject:@"1" forKey:[NSNumber numberWithFloat:5650]];
+	[frequencyMapping setObject:@"2" forKey:[NSNumber numberWithFloat:5800]];
+	[frequencyMapping setObject:@"3" forKey:[NSNumber numberWithFloat:5950]];
+	[frequencyMapping setObject:@"4" forKey:[NSNumber numberWithFloat:6100]];
+	[frequencyMapping setObject:@"5" forKey:[NSNumber numberWithFloat:6250]];
+	[frequencyMapping setObject:@"6" forKey:[NSNumber numberWithFloat:6400]];
+	[frequencyMapping setObject:@"7" forKey:[NSNumber numberWithFloat:6550]];
+	[frequencyMapping setObject:@"8" forKey:[NSNumber numberWithFloat:6700]];
+	[frequencyMapping setObject:@"9" forKey:[NSNumber numberWithFloat:25850]];
 
 }
 
