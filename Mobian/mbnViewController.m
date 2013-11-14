@@ -70,7 +70,7 @@ OSStatus RenderTone(
     const double tiempoEntreFonemas = [viewController.tiempoEntreFonemas floatValue];
     
 	// Fixed amplitude is good enough for our purposes
-	const double amplitude = 1;
+	const double amplitude = 2;
     
     
     //Controlo el tiempo para parar
@@ -366,7 +366,7 @@ void ToneInterruptionListener(void *inClientData, UInt32 inInterruptionState)
     sampleRate = 44100;
     frequency = 440;
     tiempoEntreFonemas = @0.20;
-    frecuenciaSeparador = 2000;
+    frecuenciaSeparador = 3000;
     
     //Wav Player
     NSString *soundFilePath = [[NSBundle mainBundle] pathForResource: @"startsound" ofType: @"wav"];

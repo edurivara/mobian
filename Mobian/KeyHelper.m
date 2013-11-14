@@ -22,7 +22,7 @@
 	[keyMapping setObject:[NSNumber numberWithFloat:6400] forKey:@"6"];
 	[keyMapping setObject:[NSNumber numberWithFloat:6550] forKey:@"7"];
 	[keyMapping setObject:[NSNumber numberWithFloat:6700] forKey:@"8"];
-	[keyMapping setObject:[NSNumber numberWithFloat:25850] forKey:@"9"];
+	[keyMapping setObject:[NSNumber numberWithFloat:6850] forKey:@"9"];
 	
 	self.frequencyMapping = [[NSMutableDictionary alloc] initWithCapacity:9];
 	[frequencyMapping setObject:@"0" forKey:[NSNumber numberWithFloat:5500]];
@@ -34,7 +34,7 @@
 	[frequencyMapping setObject:@"6" forKey:[NSNumber numberWithFloat:6400]];
 	[frequencyMapping setObject:@"7" forKey:[NSNumber numberWithFloat:6550]];
 	[frequencyMapping setObject:@"8" forKey:[NSNumber numberWithFloat:6700]];
-	[frequencyMapping setObject:@"9" forKey:[NSNumber numberWithFloat:25850]];
+	[frequencyMapping setObject:@"9" forKey:[NSNumber numberWithFloat:6850]];
 
 }
 
